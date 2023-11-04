@@ -24,17 +24,26 @@ export const postRouter = createTRPCRouter({
       return ctx.db.post.create({
         data: {
           name: input.name,
-          createdBy: { connect: { id: ctx.session.user.id } },
+          createdBy: { connect: { id: ctx.userID } },
         },
       });
     }),
 
-  getLatest: protectedProcedure.query(({ ctx }) => {
+  getLatest: publicProcedure.query(({ ctx }) => {
     return ctx.db.post.findFirst({
       orderBy: { createdAt: "desc" },
-      where: { createdBy: { id: ctx.session.user.id } },
     });
   }),
+
+  // protectedProcedure.query(({ ctx }) => {
+
+  //   console.log({ctx});
+
+  //   return ctx.db.post.findFirst({
+  //     orderBy: { createdAt: "desc" },
+  //     where: { createdBy: { id: ctx.userID } },
+  //   });
+  // }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";

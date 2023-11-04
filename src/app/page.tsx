@@ -1,12 +1,13 @@
 import Link from "next/link";
-
-import { CreatePost } from "@/app/_components/create-post";
-import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
+
+import { CreatePost } from "@/components/create-post";
+
+// import { getUserID } from "./lib/utils";
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
-  const session = await getServerAuthSession();
+  // const userID = await getUserID();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
@@ -45,14 +46,14 @@ export default async function Home() {
 
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
-              {session && <span>Logged in as {session.user?.name}</span>}
+              {/* {userID && <span>Logged in as {userID}</span>} */}
             </p>
-            <Link
-              href={session ? "/api/auth/signout" : "/api/auth/signin"}
+            {/* <Link
+              href={userID ? "/api/auth/signout" : "/api/auth/signin"}
               className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
             >
-              {session ? "Sign out" : "Sign in"}
-            </Link>
+              {userID ? "Sign out" : "Sign in"}
+            </Link> */}
           </div>
         </div>
 
@@ -63,8 +64,8 @@ export default async function Home() {
 }
 
 async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
+  // const session = await getUserID();
+  // if (!session) return null;
 
   const latestPost = await api.post.getLatest.query();
 
