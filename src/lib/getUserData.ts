@@ -16,7 +16,7 @@ type User = {
 const hankoApi = env.NEXT_PUBLIC_HANKO_API_URL;
 const hanko = new Hanko(hankoApi);
 
-export function useHankoUser() {
+function useHankoUser() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<HankoError | null>(null);
 
@@ -37,3 +37,5 @@ export function useHankoUser() {
 
   return { user, error };
 }
+
+export default useHankoUser;

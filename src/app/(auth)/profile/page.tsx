@@ -2,7 +2,8 @@
 
 import { LogoutBtn } from "@/components/auth/ButtonLogout";
 import HankoProfile from "@/components/auth/HankoProfile";
-import { useHankoUser } from "@/lib/getUserData";
+
+import  useHankoUser from "@/lib/getUserData";
 
 const Profile = () => {
 
