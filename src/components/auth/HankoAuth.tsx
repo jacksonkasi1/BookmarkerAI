@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Hanko, register } from "@teamhanko/hanko-elements";
+import { type Hanko, register } from "@teamhanko/hanko-elements";
 import { env } from "@/env.mjs";
 
 const hankoApiUrl: string = env.NEXT_PUBLIC_HANKO_API_URL;
