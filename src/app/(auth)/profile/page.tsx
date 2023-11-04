@@ -1,12 +1,14 @@
 "use client";
 
+// ** import components
 import { LogoutBtn } from "@/components/auth/ButtonLogout";
 import HankoProfile from "@/components/auth/HankoProfile";
 
-import  useHankoUser from "@/lib/getUserData";
+// ** import hook
+import useHankoUser from "@/lib/hook/useHankoUser";
+
 
 const Profile = () => {
-
   const { user, error } = useHankoUser();
 
   if (error) {

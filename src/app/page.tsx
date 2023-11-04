@@ -1,13 +1,16 @@
+'use client';
+
 import Link from "next/link";
-import { api } from "@/trpc/server";
+import { api } from "@/trpc/react";
 
 import { CreatePost } from "@/components/create-post";
 
-// import { getUserID } from "./lib/utils";
+// ** import hooks
+import useHankoUser from "@/lib/hook/useHankoUser";
 
-export default async function Home() {
-  const hello = await api.post.hello.query({ text: "from tRPC" });
-  // const userID = await getUserID();
+export default  function Home() {
+  const hello =  api.post.hello.useQuery({ text: "from tRPC" });
+  const { user } = useHankoUser();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
@@ -41,19 +44,16 @@ export default async function Home() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
+            {hello ? hello.data?.greeting : "Loading tRPC query..."}
           </p>
 
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
-              {/* {userID && <span>Logged in as {userID}</span>} */}
+              {user && <span>USER ID: {user.id}</span>}
+              <br />
+              <br />
+              {user && <span>Logged in as {user.email}</span>}
             </p>
-            {/* <Link
-              href={userID ? "/api/auth/signout" : "/api/auth/signin"}
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-            >
-              {userID ? "Sign out" : "Sign in"}
-            </Link> */}
           </div>
         </div>
 
@@ -63,11 +63,9 @@ export default async function Home() {
   );
 }
 
-async function CrudShowcase() {
-  // const session = await getUserID();
-  // if (!session) return null;
+ function CrudShowcase() {
 
-  const latestPost = await api.post.getLatest.query();
+  const latestPost =  api.post.getLatest.useQuery().data;
 
   return (
     <div className="w-full max-w-xs">

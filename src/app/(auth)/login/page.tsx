@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 
+// ** import Hanko
 const HankoAuth = dynamic(() => import("@/components/auth/HankoAuth"), {
   ssr: false,
 });
