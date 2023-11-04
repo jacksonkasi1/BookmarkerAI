@@ -20,20 +20,20 @@ export default function HankoAuth() {
       );
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await hanko!.user.getCurrent();
-        console.log({user});
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         const user = await hanko!.user.getCurrent();
+//         console.log({user});
+//       } catch (error) {
+//         console.error('Error fetching user:', error);
+//       }
+//     };
 
-    fetchUser().catch(error => {
-      console.error('Error fetching user:', error);
-    });
-  }, [hanko]);
+//     fetchUser().catch(error => {
+//       console.error('Error fetching user:', error);
+//     });
+//   }, [hanko]);
 
 
   useEffect(
