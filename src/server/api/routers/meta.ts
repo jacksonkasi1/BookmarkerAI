@@ -1,18 +1,22 @@
-import { z } from "zod";
+import graph from 'open-graph-scraper'
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
+
+// ** import types
+import { urlInput } from "@/types/validation";
+import { MetaOutput } from "@/types";
 
 export const metaRouter = createTRPCRouter({
-  metaScrap: publicProcedure
-    .input(z.object({ url: z.string() }))
-    .query(({ ctx, input }) => {
-      console.log(ctx);
+  metaScrape: protectedProcedure
+    .input(urlInput)
+    .mutation( async ({  input }) => {
+      const { url } = input;
+
+      const {result} = await graph({url})
+
       return {
-        url: input.url,
+        url,
+        result: result as MetaOutput
       };
     }),
 });

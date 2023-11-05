@@ -26,6 +26,7 @@ import { userId } from "../lib/utils/userId";
 
 interface CreateContextOptions {
   headers: Headers;
+  req: NextRequest;
   userID: string | null;
 }
 
@@ -42,6 +43,7 @@ interface CreateContextOptions {
 export const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     headers: opts.headers,
+    req: opts.req,
     userID: opts.userID,
     db,
   };
@@ -60,6 +62,7 @@ export const createTRPCContext = (opts: { req: NextRequest }) => {
 
   return createInnerTRPCContext({
     headers: opts.req.headers,
+    req: opts.req,
     userID
   });
 };
